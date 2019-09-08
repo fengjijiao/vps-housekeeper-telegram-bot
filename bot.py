@@ -428,27 +428,27 @@ def menu(bot, update):
     update.message.reply_text("/hello ,simply greet.\n/echo ,return your input content.\n/astatus ,return api sum status.\n/servers ,return NQ node info.\n/list ,return all node name.\n/add ,add one node.\n/delete ,delete one node.\n/bw ,return one node for bandwidth.\n/hdd ,return one node for hdd disk.\n/ipaddr ,return one node for ip address.\n/mem ,return one node for memery.\n/boot ,boot a node.\n/reboot ,reboot a node.\n/shutdown ,shutdown a node.\n/status ,return one node for status.\n/myinfo ,return your info.")
 
 def power_check(update):
-    power_id=260685916
+    power_id=260685916  #Your telegram id
     if(update.message.from_user.id!=power_id):
         return False
     else:
         return True
 
 def bytes(bytes):
-    if bytes < 1024:  #比特
-        bytes = str(round(bytes, 2)) + ' B' #字节
+    if bytes < 1024:  #bit
+        bytes = str(round(bytes, 2)) + ' B' #Byte
     elif bytes >= 1024 and bytes < 1024 * 1024:
-        bytes = str(round(bytes / 1024, 2)) + ' KB' #千字节
+        bytes = str(round(bytes / 1024, 2)) + ' KB' #kByte
     elif bytes >= 1024 * 1024 and bytes < 1024 * 1024 * 1024:
-        bytes = str(round(bytes / 1024 / 1024, 2)) + ' MB' #兆字节
+        bytes = str(round(bytes / 1024 / 1024, 2)) + ' MB' #MByte
     elif bytes >= 1024 * 1024 * 1024 and bytes < 1024 * 1024 * 1024 * 1024:
-        bytes = str(round(bytes / 1024 / 1024 / 1024, 2)) + ' GB' #千兆字节
+        bytes = str(round(bytes / 1024 / 1024 / 1024, 2)) + ' GB' #KMByte
     elif bytes >= 1024 * 1024 * 1024 * 1024 and bytes < 1024 * 1024 * 1024 * 1024 * 1024:
-        bytes = str(round(bytes / 1024 / 1024 / 1024 / 1024, 2)) + ' TB' #太字节
+        bytes = str(round(bytes / 1024 / 1024 / 1024 / 1024, 2)) + ' TB' #TByte
     elif bytes >= 1024 * 1024 * 1024 * 1024 * 1024 and bytes < 1024 * 1024 * 1024 * 1024 * 1024 * 1024:
-        bytes = str(round(bytes / 1024 / 1024 / 1024 / 1024 / 1024, 2)) + ' PB' #拍字节
+        bytes = str(round(bytes / 1024 / 1024 / 1024 / 1024 / 1024, 2)) + ' PB' #PByte
     elif bytes >= 1024 * 1024 * 1024 * 1024 * 1024 * 1024 and bytes < 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024:
-        bytes = str(round(bytes / 1024 / 1024 / 1024 / 1024 / 1024 /1024, 2)) + ' EB' #艾字节
+        bytes = str(round(bytes / 1024 / 1024 / 1024 / 1024 / 1024 /1024, 2)) + ' EB' #EByte
     return bytes
 
 def main():
