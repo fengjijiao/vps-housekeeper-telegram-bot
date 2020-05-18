@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
+DB_FILE_PATH = "../db/sqlite.db"
+TELEGRAM_BOT_APIKEY = "1198671990:AAF8yxhky8wipGLgkJn0Ftiv3rWIjyeK_70"
+ADMIN_LOGIN_AUTHKEY = "123"
+APP_SESSION_SECRET_KEY = "super secret key"
+HTTP_SERVER_DEBUG = True
+HTTP_SERVER_LISTEN_ADDRESS = '127.0.0.1'
+HTTP_SERVER_LISTEN_PORT = 5000
