@@ -4,6 +4,7 @@ import functools
 import flask
 import sys
 import signal
+import importlib
 import keeper_bot.utils.dbUtils as dbUtils
 from keeper_bot.utils import processUtils
 import keeper_bot.config as staticGlobal  # 全局配置
@@ -81,9 +82,21 @@ def addOneApi():
 @app.route('/v1/refreshOneApi/<int:api_id>')
 @loginAuth
 def refreshOneApi(api_id):
-    api_info = dbUtils.getOneApi(api_id)
-    api_type = dbUtils.getApiType(api_info['type'])
-    return dbUtils.addOneApi(api_name, api_type, api_url)
+    api_info = dbUtils.getOneApi(api_id, returnData=True)
+    api_type = dbUtils.getApiType(api_info['type'], returnData=True)
+    apiModule = importlib.import_module('keeper_bot.api.' + api_type['name'])  # 动态调用类
+    if hasattr(apiModule, 'isCanToUse'):
+        isCanToUse = getattr(apiModule, 'isCanToUse')
+        if not isCanToUse():
+            print('can not use {} library!'.format(api_type['name']))
+            return 'can not use {} library!'.format(api_type['name'])
+        else:
+            print('can use {} library!'.format(api_type['name']))
+            # return dbUtils.addOneApi(api_name, api_type, api_url)
+            return 'can use {} library!'.format(api_type['name'])
+    else:
+        print('no support api type {}!'.format(api_type['name']))
+        return 'no support api type {}!'.format(api_type['name'])
 
 
 @app.route('/v1/getAllServer')
@@ -116,7 +129,7 @@ def run():
     if not processUtils.is_running(processName):
         processUtils.set_running(processName)
         print(processName, '启动成功')
-        signal.signal(signal.SIGTERM | signal.SIGINT, InterruptF)# 暂时无效果
+        signal.signal(signal.SIGTERM | signal.SIGINT, InterruptF)  # 暂时无效果
         app.wsgi_app = MiddleWare(app.wsgi_app)
         # debug
         # app.run()

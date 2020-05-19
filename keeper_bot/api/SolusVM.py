@@ -5,3 +5,4 @@ API_TYPE = "SolusVM"
 
 def isCanToUse():
     print(API_TYPE, "no support default!")
+    return False

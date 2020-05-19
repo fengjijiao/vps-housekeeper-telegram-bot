@@ -18,25 +18,33 @@ if not os.path.exists(staticGlobal.DB_FILE_PATH):
     con.commit()
 
 
-def getAllApiType():
+def getAllApiType(returnData=False):
     result = cur.execute('select * from type;')
     result = [dict(row) for row in result.fetchall()]  # cover Cursor to dict
+    if returnData:
+        return result
     return packetUtils.simplePacket(0x01, 'success', result)
 
 
-def getOneApi(aid):
+def getOneApi(aid, returnData=False):
     result = cur.execute('select * from api where aid="{}" limit 1;'.format(aid)).fetchone()
     total = len(result)
     if total == 0:
+        if returnData:
+            return None
         return packetUtils.simplePacket(0x00, 'no more data!', {}, total)
     else:
-        result = dict(result[0])  # cover Cursor to dict, only one
+        result = dict(result)  # cover Cursor to dict, only one
+        if returnData:
+            return result
         return packetUtils.simplePacket(0x01, 'success', result, total)
 
 
-def getAllApi():
+def getAllApi(returnData=False):
     result = cur.execute('select * from api;')
     result = [dict(row) for row in result.fetchall()]  # cover Cursor to dict
+    if returnData:
+        return result
     return packetUtils.simplePacket(0x01, 'success', result)
 
 
@@ -44,19 +52,25 @@ def addOneApi(api_name, api_url, api_type):
     cur.execute('INSERT INTO api (name,url,type) VALUES ("{}", "{}", "{}");'.format(api_name, api_url, api_type))
 
 
-def getOneServer(sid):
+def getOneServer(sid, returnData=False):
     result = cur.execute('select * from server where sid="{}" limit 1;'.format(sid)).fetchone()
     total = len(result)
     if total == 0:
+        if returnData:
+            return None
         return packetUtils.simplePacket(0x00, 'no more data!', {}, total)
     else:
-        result = dict(result[0])  # cover Cursor to dict, only one
+        result = dict(result)  # cover Cursor to dict, only one
+        if returnData:
+            return result
         return packetUtils.simplePacket(0x01, 'success', result, total)
 
 
-def getAllServer():
+def getAllServer(returnData=False):
     result = cur.execute('select * from server;')
     result = [dict(row) for row in result.fetchall()]  # cover Cursor to dict
+    if returnData:
+        return result
     return packetUtils.simplePacket(0x01, 'success', result)
 
 
@@ -64,11 +78,15 @@ def addOneServer(vps_id, vps_name, virt, os_name):
     cur.execute('INSERT INTO server (vpsid,vpsname,virt,osname) VALUES ("{}", "{}", "{}", "{}");'.format(vps_id, vps_name, virt, os_name))
 
 
-def getApiType(api_type):
+def getApiType(api_type, returnData=False):
     result = cur.execute('SELECT * FROM type WHERE tid="{}" LIMIT 1;'.format(api_type)).fetchone()
     total = len(result)
     if total <= 0:
+        if returnData:
+            return None
         return packetUtils.simplePacket(0x00, 'no more data!', {}, total)
     else:
-        result = dict(result[0])  # cover Cursor to dict, only one
+        result = dict(result)  # cover Cursor to dict, only one
+        if returnData:
+            return result
         return packetUtils.simplePacket(0x01, 'success', result, total)
