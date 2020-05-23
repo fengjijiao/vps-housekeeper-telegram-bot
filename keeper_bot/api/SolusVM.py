@@ -4,5 +4,9 @@ API_TYPE = "SolusVM"
 
 
 def isCanToUse():
-    print(API_TYPE, "no support default!")
+    return True
+
+
+def isCanGetAllServer():
+    print(API_TYPE, "no api to get all server info!")
     return False

@@ -88,14 +88,15 @@ def refreshOneApi(api_id):
     if hasattr(apiModule, 'isCanToUse'):
         isCanToUse = getattr(apiModule, 'isCanToUse')
         if not isCanToUse():
-            print('can not use {} library!'.format(api_type['name']))
             return 'can not use {} library!'.format(api_type['name'])
         else:
-            print('can use {} library!'.format(api_type['name']))
-            # return dbUtils.addOneApi(api_name, api_type, api_url)
-            return 'can use {} library!'.format(api_type['name'])
+            isCanGetAllServer = getattr(apiModule, 'isCanGetAllServer')
+            if not isCanGetAllServer():
+                # return dbUtils.addOneApi(api_name, api_type, api_url)
+                return 'can not use {}.{} library!'.format(api_type['name'], 'isCanGetAllServer')
+            else:
+                return 'can use {}.{} library!'.format(api_type['name'], 'isCanGetAllServer')
     else:
-        print('no support api type {}!'.format(api_type['name']))
         return 'no support api type {}!'.format(api_type['name'])
 
 

@@ -4,7 +4,6 @@ import signal
 import telebot
 import logging
 from telebot import apihelper
-import requests
 import sys
 import keeper_bot.config as staticGlobal  # 全局配置
 from keeper_bot.utils import processUtils

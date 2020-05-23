@@ -3,9 +3,13 @@
 from urllib.parse import urlparse
 API_TYPE = "Virtualizor"
 
+
 def isCanToUse():
-    print(API_TYPE, "no support default!")
-    return False
+    return True
+
+
+def isCanGetAllServer():
+    return True
 
 
 def getAllServerInfo():
